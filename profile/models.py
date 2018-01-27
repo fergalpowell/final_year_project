@@ -2,13 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
 
-class User(models.Model):
-    location = models.IntegerField
-    name = models.CharField(max_length=250)
-    email = models.CharField(max_length=250)
+class UserInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    serial_number = models.IntegerField(primary_key=True)
+    tracking_device_number = models.CharField(max_length=250)
     bike_image_ref = models.CharField(max_length=250)
     bike_model = models.CharField(max_length=250)
     bike_colour = models.CharField(max_length=250)

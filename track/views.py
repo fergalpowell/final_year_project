@@ -6,6 +6,6 @@ from django.template.loader import get_template
 
 
 def load_map(request):
-    t = get_template('plan.html')
+    t = get_template('track.html')
     html = t.render()
     return HttpResponse(html)

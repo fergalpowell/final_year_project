@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/home.css' %}">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    {% block content %}
+    {% if user.is_authenticated %}
+        <div class="btn-group-vertical">
+            <button data-toggle="collapse"
+                    data-target="#route"
+                    class="nav"
+                    id="create">
+                <a href="{% url 'home' %}">Home</a>
+            </button>
+            <button data-toggle="collapse"
+                    data-target="#settings"
+                    class="nav"
+                    id="showAll">
+                <a href="{% url 'home' %}">Track</a>
+            </button>
+            <button data-toggle="collapse"
+                    data-target="#route"
+                    class="nav"
+                    id="create">
+                <a href="{% url 'home' %}">Plan</a>
+            </button>
+            <button data-toggle="collapse"
+                    data-target="#settings"
+                    class="nav"
+                    id="showAll">
+                <a href="{% url 'home' %}">Profile</a>
+            </button>
+        </div>
+    {% else %}
+      {% url 'login' %}
+    {% endif %}
+    {% endblock %}
+</body>
+</html>
