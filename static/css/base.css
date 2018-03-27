@@ -1,0 +1,61 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+body {
+    padding: 0;
+    margin: 0;
+    background-color: red;
+}
+html, body, #map {
+    height: 100%;
+    width: 100vw;
+}
+
+#heading{
+    width: 100%;
+    background-color: #76A6FC;
+}
+
+#logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 125px;
+    padding: 10px;
+}
+
+.nav{
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+}
+
+.nav:hover {
+    background-color: #777;
+}
+
+.nav:hover {
+    background-color: #777;
+}
+
+.panel-default{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.btn-group-vertical{
+    width: 100%;
+}
+
+.btn-primary{
+    border-radius: 0 !important;
+}

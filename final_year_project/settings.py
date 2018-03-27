@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'home',
     'leaflet',
     'djgeojson',
+    'rest_framework',
+    'rest_framework_gis',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +63,7 @@ ROOT_URLCONF = 'final_year_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "final_year_project/../home/templates"), ],
+        'DIRS': [os.path.join(BASE_DIR, "final_year_project/../templates"), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,7 +121,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False  # Set to false to enable date time format specified at bottom of page
 
 USE_TZ = True
 
@@ -127,5 +129,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATICFILES_DIRS = (
+    # used for static assets that aren't tied to a particular app
+    os.path.join(BASE_DIR, 'static'),
+)
+
 STATIC_URL = '/static/'
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+LOGIN_REDIRECT_URL = 'home'
+DATETIME_FORMAT = '%m/%d/%y %H:%M'

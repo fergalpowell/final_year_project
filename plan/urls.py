@@ -5,7 +5,7 @@ from plan.models import BikeStation
 
 
 urlpatterns = [
-    url(r'^$', views.load_map, name='home'),
+    url(r'^$', views.load_map, name='plan'),
     url(r'^data/$', GeoJSONLayerView.as_view(model=BikeStation, properties='location, geom'),
         name='data')
     ]

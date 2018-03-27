@@ -5,7 +5,7 @@
     {% load static %}
     <meta charset="UTF-8">
     <title>Track My Bike</title>
-    <link rel="stylesheet" type="text/css" href="{%  static 'css/plan.css' %}">
+    <link rel="stylesheet" type="text/css" href="{%  static 'css/track.css' %}">
     <link rel="stylesheet" href="{% static 'downloads/leaflet/leaflet.css' %}">
     <link rel="stylesheet" href="{% static 'downloads/leaflet-routing-machine-3.2.7/dist/leaflet-routing-machine.css' %}"/>
     <link rel="stylesheet" href="{% static 'downloads/Leaflet.markercluster-1.2.0/dist/MarkerCluster.css' %}" />
@@ -22,6 +22,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <div id="heading">
+      <img src="../static/images/dude.png" alt="logo" id="logo"/>
+    </div>
     <div class="btn-group-vertical">
             <button data-toggle="collapse"
                     data-target="#route"

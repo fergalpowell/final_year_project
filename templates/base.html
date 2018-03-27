@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load leaflet_tags %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Dude Where's My Bike</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/base.css">
+    <link rel="stylesheet" href="{% static 'downloads/leaflet/leaflet.css' %}">
+    <link rel="stylesheet" href="{% static 'downloads/leaflet-routing-machine-3.2.7/dist/leaflet-routing-machine.css' %}"/>
+    <link rel="stylesheet" href="{% static 'downloads/Leaflet.markercluster-1.2.0/dist/MarkerCluster.css' %}" />
+    <link rel="stylesheet" href="{% static 'downloads/Leaflet.markercluster-1.2.0/dist/MarkerCluster.Default.css' %}" />
+    <link rel="stylesheet" href="{% static 'downloads/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'downloads/Leaflet.ExtraMarkers-master/src/assets/css/leaflet.extra-markers.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="{% static 'downloads/leaflet/leaflet.js' %}"></script>
+    <script src="{% static 'downloads/leaflet-routing-machine-3.2.7/dist/leaflet-routing-machine.js' %}"></script>
+    <script src="{% static 'downloads/Leaflet.markercluster-1.2.0/dist/leaflet.markercluster.js' %}"></script>
+    <script src="{% static 'downloads/Leaflet.ExtraMarkers-master/src/assets/js/leaflet.extra-markers.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div id="heading">
+      <img src="../static/images/dude.png" alt="logo" id="logo"/>
+    </div>
+    <div class="btn-group-vertical">
+        <a href="{% url 'home' %}">
+            <button data-toggle="collapse"
+                    data-target="#route"
+                    class="nav"
+                    id="home"
+                    onclick="">Home
+            </button>
+        </a>
+        <a href="{% url 'track' %}">
+            <button data-toggle="collapse"
+                data-target="#route"
+                class="nav"
+                id="track"
+                onclick="">Track
+            </button>
+        </a>
+        <a href="{% url 'plan' %}">
+            <button data-toggle="collapse"
+                    data-target="#route"
+                    class="nav"
+                    id="plan"
+                    onclick="$('#settings').collapse('hide');">Plan
+            </button>
+        </a>
+        <a href="{% url 'profile' %}">
+            <button data-toggle="collapse"
+                    data-target="#route"
+                    class="nav"
+                    id="profile"
+                    onclick="$('#settings').collapse('hide');">Profile
+            </button>
+        </a>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
