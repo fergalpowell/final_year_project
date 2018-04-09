@@ -1,15 +1,6 @@
-body {
-    padding: 0;
-    margin: 0;
-}
-body {
-    padding: 0;
-    margin: 0;
-    background-color: red;
-}
-html, body, #map {
+html, body {
     height: 100%;
-    width: 100vw;
+    width: 100%;
 }
 
 #heading{
@@ -21,7 +12,8 @@ html, body, #map {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    height: 125px;
+    height: 100%;
+    width: 60%;
     padding: 10px;
 }
 
@@ -29,7 +21,7 @@ html, body, #map {
     background-color: #555;
     color: white;
     float: left;
-    border: none;
+    border: 1px solid #A9A9A9;
     outline: none;
     cursor: pointer;
     padding: 14px 16px;
@@ -41,21 +33,82 @@ html, body, #map {
     background-color: #777;
 }
 
-.nav:hover {
-    background-color: #777;
-}
-
 .panel-default{
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    padding-top: 20px;
 }
 
-.btn-group-vertical{
+#nav-bar{
     width: 100%;
 }
 
 .btn-primary{
-    border-radius: 0 !important;
+    width: 40%;
+    height: 15%;
+    padding-top: 10px;
 }
+
+#map{
+    float:left; display:inline;
+    width: 68%;
+    height: 100%;
+}
+
+.hr{
+   border: 1px solid #76A6FC;
+}
+
+#dashboard{
+    float:left;
+    width: 408px;
+    height: 100%;
+    border: 1px solid #A9A9A9;
+    background-color: #DCDCDC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 4px 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 75%;
+    height: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.card-header{
+    background-color: #76A6FC;
+    height: 25%;
+
+}
+
+.card-image{
+    border-radius: 50%;
+    width: 30%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+    border: 5px solid #eee;
+}
+
+.card-content{
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+}
+
+.results{
+    font-weight: bold;
+}
+
+.leaflet-mouse-marker{background-color:#fff;cursor:crosshair}
+

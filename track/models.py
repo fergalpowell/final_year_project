@@ -21,6 +21,8 @@ class Journey(models.Model):
     duration = models.TimeField(null=True, blank=True)
     saved_journey = models.BooleanField(blank=True)
     outside_geofence = models.BooleanField(blank=True)
+    finished = models.BooleanField(blank=True)
+    date_time = models.DateTimeField(blank=True)
 
 
 class Location(models.Model):
@@ -28,6 +30,7 @@ class Location(models.Model):
     current_location = models.PointField(null=True, blank=True)
     home_location = models.PointField(null=True, blank=True)
     work_location = models.PointField(null=True, blank=True)
+    date_time = models.DateTimeField(blank=True)
 
 
 class LocationData(models.Model):

@@ -12,54 +12,47 @@
     <link rel="stylesheet" href="{% static 'downloads/Leaflet.markercluster-1.2.0/dist/MarkerCluster.Default.css' %}" />
     <link rel="stylesheet" href="{% static 'downloads/font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'downloads/Leaflet.ExtraMarkers-master/src/assets/css/leaflet.extra-markers.css' %}">
+    <link rel="stylesheet" href="{% static 'downloads/leaflet-layer-overpass-master/dist/OverPassLayer.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <script src="{% static 'downloads/leaflet/leaflet.js' %}"></script>
     <script src="{% static 'downloads/leaflet-routing-machine-3.2.7/dist/leaflet-routing-machine.js' %}"></script>
     <script src="{% static 'downloads/Leaflet.markercluster-1.2.0/dist/leaflet.markercluster.js' %}"></script>
     <script src="{% static 'downloads/Leaflet.ExtraMarkers-master/src/assets/js/leaflet.extra-markers.js' %}"></script>
+    <script src="{% static 'downloads/leaflet-layer-overpass-master/dist/OverPassLayer.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div id="heading">
-      <img src="../static/images/dude.png" alt="logo" id="logo"/>
+    <div id="dashboard">
+        <div id="heading">
+            <img src="../static/images/dude.png" alt="logo" id="logo"/>
+        </div>
+        <div class="btn-group-vertical" id = "nav-bar">
+            <a href="{% url 'home' %}">
+                <button data-target=""
+                        class="nav">Home
+                </button>
+            </a>
+            <a href="{% url 'track' %}">
+                <button data-target=""
+                        class="nav"
+                        onclick="$('#home').collapse('hide');">Track
+                </button>
+            </a>
+            <a href="{% url 'plan' %}">
+                <button data-target=""
+                        class="nav">Plan</button>
+            </a>
+            <a href="{% url 'profile' %}">
+                <button data-target=""
+                        class="nav">Profile</button>
+            </a>
+        </div>
+        <div class="panel-default">
+            {% block content %}
+            {% endblock %}
+        </div>
     </div>
-    <div class="btn-group-vertical">
-        <a href="{% url 'home' %}">
-            <button data-toggle="collapse"
-                    data-target="#route"
-                    class="nav"
-                    id="home"
-                    onclick="">Home
-            </button>
-        </a>
-        <a href="{% url 'track' %}">
-            <button data-toggle="collapse"
-                data-target="#route"
-                class="nav"
-                id="track"
-                onclick="">Track
-            </button>
-        </a>
-        <a href="{% url 'plan' %}">
-            <button data-toggle="collapse"
-                    data-target="#route"
-                    class="nav"
-                    id="plan"
-                    onclick="$('#settings').collapse('hide');">Plan
-            </button>
-        </a>
-        <a href="{% url 'profile' %}">
-            <button data-toggle="collapse"
-                    data-target="#route"
-                    class="nav"
-                    id="profile"
-                    onclick="$('#settings').collapse('hide');">Profile
-            </button>
-        </a>
-    </div>
-    {% block content %}
-    {% endblock %}
 </body>
 </html>

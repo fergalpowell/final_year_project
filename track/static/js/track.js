@@ -31,7 +31,7 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
 }).addTo(map);
 
-var data_url = 'http://127.0.0.1:8000/track/location-data/';
+var data_url = 'http://127.0.0.1:8000/track/current-location-data/';
 
 // Download GeoJSON via Ajax
 $.getJSON(data_url, function (data) {

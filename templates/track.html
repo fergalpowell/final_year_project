@@ -3,6 +3,31 @@
 {% load static %}
 
 {% block content %}
-    <div id="map"></div>
+    <div class="card">
+        <div class="card-header">
+            <img src="../static/images/triban.jpg" alt="card-image" class="card-image"/>
+        </div>
+        <div class="card-content">
+            <button data-target=""
+                    id="locate"
+                    class="btn btn-primary">Current Location
+            </button>
+            <button data-target="#journeys"
+                    class="btn btn-primary">Past Journeys
+            </button>
+            <br><br>
+            <button data-target=""
+                    id="locate"
+                    class="btn btn-primary">View Home
+            </button>
+            <button data-target=""
+                    class="btn btn-primary">View Work
+            </button>
+            <hr class="hr"/>
+            <div class="results"></div>
+            <br>
+
+        </div>
+    </div>
     <script src="{% static 'js/track.js' %}"></script>
 {% endblock %}
