@@ -85,10 +85,11 @@ WSGI_APPLICATION = 'final_year_project.wsgi.application'
 DATABASES = {
     'default': {
          'ENGINE': 'django.contrib.gis.db.backends.postgis',
-         'NAME': 'fyp',
-         'USER': 'admin',
-         'HOST': 'localhost',
-         'PASSWORD': 'admin',
+         'NAME': 'dude_wheres_my_bike',
+         'USER': 'FergalPowell',
+         'HOST': 'dudewheresmybike.cuztok1gfjda.eu-west-1.rds.amazonaws.com',
+         'PORT': '5432',
+         'PASSWORD': 'Avocapark15',
     },
 }
 

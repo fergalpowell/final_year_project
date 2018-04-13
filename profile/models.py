@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from track.models import Location
-
+from django.utils import timezone
+import pytz
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -18,7 +19,7 @@ class Profile(models.Model):
 
     def save(self, **kwargs):
         super(Profile, self).save(**kwargs)
-        location = Location(user=self)
+        location = Location(user=self, date_time=timezone.now())
         location.save()
 
     def get_number(self):
