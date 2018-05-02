@@ -1,0 +1,112 @@
+#heading{
+    width: 100%;
+    background-color: #76A6FC;
+}
+
+#logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 125px;
+    padding: 10px;
+}
+
+.top{
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 50%;
+    border: 1px solid #A9A9A9;
+}
+
+#create:hover {
+    background-color: #777;
+}
+
+#showAll:hover {
+    background-color: #777;
+}
+
+.panel-default{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.btn-group-vertical{
+    width: 100%;
+}
+
+.btn-primary{
+    border-radius: 0 !important;
+}
+
+.sub{
+    background-color: #777777 !important;
+    color: white;
+    float: left;
+    outline: none;
+    cursor: pointer;
+    width: 50%;
+    border: 1px solid #A9A9A9;!important;
+}
+
+#create-route-button{
+    background-color: green !important;
+    width: 50%;
+    border-radius: 0 !important;
+    color: white;
+    float: left;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #A9A9A9;
+}
+
+#reset-route-button{
+    background-color: #FF5733 !important;
+    border-radius: 0 !important;
+    color: white;
+    float: left;
+    border: 1px solid #A9A9A9;
+    outline: none;
+    cursor: pointer;
+    width: 50%;
+}
+
+#reset-map-button{
+    background-color: #FF0000 !important;
+    border-radius: 0 !important;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#start{
+    width: 100%;
+}
+
+#save-route-button{
+    padding: 10px;
+    visibility: hidden;
+}
+#save{
+    padding-top: 10px;
+}
+
+#save-route-input{
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    margin-bottom: 5px;
+    border-color: #333333;
+}
+
+

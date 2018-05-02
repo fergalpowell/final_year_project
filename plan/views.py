@@ -2,23 +2,24 @@
 from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
-from plan.models import BikeStation
-import csv
+from plan.models import Route
 from django.template.loader import get_template
-from django.contrib.gis.geos import fromstr
-
+import json
+from django.contrib.gis.geos import GEOSGeometry, LineString, Point
+from django.utils import timezone
 
 def load_map(request):
-    csv_file = '/home/fergal/final_year_project/plan/stations/stations.csv'
-    my_csv = csv.reader(open(csv_file))
-
-    for line in my_csv:
-        if line[1] != 'X':
-            my_long_lat = str(line[1] + " " + line[2])
-            _, created = BikeStation.objects.get_or_create(
-                location=line[5],
-                geom=fromstr('POINT(' + my_long_lat + ')')
-            )
     t = get_template('plan.html')
     html = t.render()
     return HttpResponse(html)
+
+
+def save_route(request):
+    name = request.POST.get('name')
+    route1 = request.POST.get('route')
+    route2 = json.loads(route1)
+    route = LineString((route2[0]["lat"], route2[0]["lng"]), (route2[1]["lat"], route2[1]["lng"]), srid=4326)
+    current_time = timezone.now()
+    r = Route(route=route, name=name, date_time=current_time)
+    r.save()
+    return HttpResponse("OK")

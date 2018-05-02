@@ -1,7 +1,105 @@
 {% extends "base.html" %}
-{% load leaflet_tags %}
 {% load static %}
 
 {% block content %}
     <script src="{% static 'js/plan.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/plan.css'%} ">
+
+    <div class="card">
+        <div class="card-header">
+            <img src="../static/images/triban.jpg" alt="card-image" class="card-image"/>
+        </div>
+        <div class="card-content">
+            <div class="btn-group-vertical">
+                <button data-toggle="collapse"
+                        data-target="#route"
+                        class="top"
+                        id="create"
+                        onclick="$('#settings').collapse('hide');">Create Route
+                </button>
+                <button data-toggle="collapse"
+                        data-target="#settings"
+                        class="top"
+                        id="showAll"
+                        onclick="$('#route').collapse('hide');">Settings
+                </button>
+            </div>
+            <div id="route" class=".collapse.show">
+                <div class="btn-group-vertical">
+                    <button class="btn btn-primary"
+                            data-toggle="collapse"
+                            data-target="#start">Set Start</button>
+                    <div id="start" class="collapse">
+                        <button type="button"
+                                class="btn btn-primary sub"
+                                onclick="Locate(); $('#start').collapse('hide');">Use current location
+                        </button>
+                        <button type="button"
+                                class="btn btn-primary sub"
+                                onclick="SelectOnMap(); $('#start').collapse('hide');">Select on map
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-primary"
+                            id="pan-button1"
+                            data-toggle="collapse"
+                            data-target="#dest">Set Destination
+                    </button>
+                    <div id="dest" class="collapse">
+                        <button type="button"
+                                class="btn btn-primary sub"
+                                onclick="Locate(); $('#dest').collapse('hide');">Use current location
+                        </button>
+                        <button type="button"
+                                class="btn btn-primary sub"
+                                onclick="SelectOnMap(); $('#dest').collapse('hide');">Select on map
+                        </button>
+                    </div>
+                    <button type="button"
+                            class="btn btn-primary"
+                            id="create-route-button"
+                            data-toggle="collapse"
+                            data-target="#save"
+                            onclick="Create(); $('#route').collapse('hide');">Create
+                    </button>
+                    <button type="button"
+                            class="btn btn-primary"
+                            id="reset-route-button"
+                            onclick="hide(); MapReset()">Reset
+                    </button>
+                </div>
+            </div>
+
+            <div id="settings" class="collapse">
+                <div class="btn-group-vertical">
+                    <button type="button"
+                            class="btn btn-primary"
+                            onclick="DisplayStations()">Display All Stations
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                            data-toggle="collapse"
+                            data-target="#filter">Filter Resources
+                    </button>
+                    <div id="filter" class="collapse">
+                        <label class="checkbox-inline" id="parking"><input type="checkbox" value="1">Parking</label>
+                        <label class="checkbox-inline" id="repair"><input type="checkbox" value="1">Repair Shops</label>
+                        <label class="checkbox-inline" id="garda"><input type="checkbox" value="1">Garda Stations</label>
+                    </div>
+                    <button type="button"
+                            class="btn btn-primary"
+                            id="reset-map-button"
+                            onclick="MapReset()">Reset Settings
+                    </button>
+                </div>
+            </div>
+            <div id="save" class="collapse">
+                <input type="text" class="form-control" id="save-route-input" placeholder="Enter Route Name">
+                <button type="button"
+                    class="btn btn-primary"
+                    id="save-route-button"
+                    onclick="SaveRoute()">Save Route
+                </button>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

@@ -47,10 +47,10 @@ def work_location_detail(request):
 
 def journey_detail(request):
     try:
-        journey = Journey.objects.get(pk=14)
+        journey = Journey.objects.all()
     except Journey.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = JourneySerializer(journey)
+        serializer = JourneySerializer(journey, many=True)
         return JsonResponse(serializer.data, safe=False)

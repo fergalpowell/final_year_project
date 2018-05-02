@@ -6,13 +6,13 @@ from django.contrib.gis.db import models
 
 
 class Geofence(models.Model):
-    user = models.ForeignKey('profile.Profile')
+    user = models.ForeignKey('profile.Profile', on_delete=models.CASCADE)
     name = models.CharField(max_length=250, null=True, blank=True)
     coordinates = models.PolygonField(null=True, blank=True)
 
 
 class Journey(models.Model):
-    user = models.ForeignKey('profile.Profile')
+    user = models.ForeignKey('profile.Profile', on_delete=models.CASCADE)
     route = models.LineStringField(null=True, blank=True)
     distance = models.FloatField(null=True, blank=True)
     highest_elevation = models.FloatField(null=True, blank=True)
@@ -26,7 +26,7 @@ class Journey(models.Model):
 
 
 class Location(models.Model):
-    user = models.ForeignKey('profile.Profile')
+    user = models.ForeignKey('profile.Profile', on_delete=models.CASCADE)
     current_location = models.PointField(null=True, blank=True)
     home_location = models.PointField(null=True, blank=True)
     work_location = models.PointField(null=True, blank=True)
@@ -34,7 +34,7 @@ class Location(models.Model):
 
 
 class LocationData(models.Model):
-    user = models.ForeignKey('profile.Profile')
+    user = models.ForeignKey('profile.Profile', on_delete=models.CASCADE)
     location = models.PointField(null=True, blank=True)
     speed = models.FloatField(null=True, blank=True)
     date_time = models.DateTimeField(null=True, blank=True)

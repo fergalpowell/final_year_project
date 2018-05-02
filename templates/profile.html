@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <script src="{% static 'js/profile.js' %}"></script>
+    <div class="card">
+        <div class="card-header">
+            <img src="../static/images/triban.jpg" alt="card-image" class="card-image"/>
+        </div>
+        <div class="card-content">
+            <table class="table" id="profile-table">
+                <tbody>
+                    <tr>
+                        <th data-field="serial_number" scope="col">Owner:</th>
+                        <td>Fergal Powell</td>
+                    </tr>
+                    <tr>
+                        <th data-field="serial_number" scope="col">Serial Number:</th>
+                        <td>MU28438</td>
+                    </tr>
+                    <tr>
+                      <th data-field="tracking_device_number" scope="col">Tracking Device Number:</th>
+                        <td>0876613438</td>
+                    </tr>
+                    <tr>
+                      <th data-field="bike_model" scope="col">Bike Model:</th>
+                        <td>Btwin Triban</td>
+                    </tr>
+                    <tr>
+                      <th data-field="bike_colour" scope="col">Bike Colour:</th>
+                        <td>Black/Grey and Blue Grips</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

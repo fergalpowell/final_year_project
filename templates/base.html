@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load leaflet_tags %}
     {% load static %}
     <meta charset="UTF-8">
+    <link rel="icon" href="{% static 'images/dude.png' %}" type="image/x-icon"/>
     <title>Dude Where's My Bike</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/base.css">
+
+     <link rel="stylesheet" type="text/css" href="../static/css/base.css">
     <link rel="stylesheet" href="{% static 'downloads/leaflet/leaflet.css' %}">
-    <link rel="stylesheet" href="{% static 'downloads/leaflet-routing-machine-3.2.7/dist/leaflet-routing-machine.css' %}"/>
+    <link rel="stylesheet" href="{% static 'downloads/leaflet-routing-machine-3.2.8/dist/leaflet-routing-machine.css' %}"/>
     <link rel="stylesheet" href="{% static 'downloads/Leaflet.markercluster-1.2.0/dist/MarkerCluster.css' %}" />
     <link rel="stylesheet" href="{% static 'downloads/Leaflet.markercluster-1.2.0/dist/MarkerCluster.Default.css' %}" />
     <link rel="stylesheet" href="{% static 'downloads/font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'downloads/Leaflet.ExtraMarkers-master/src/assets/css/leaflet.extra-markers.css' %}">
     <link rel="stylesheet" href="{% static 'downloads/leaflet-layer-overpass-master/dist/OverPassLayer.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css" rel="stylesheet" type="text/css" />
 
     <script src="{% static 'downloads/leaflet/leaflet.js' %}"></script>
-    <script src="{% static 'downloads/leaflet-routing-machine-3.2.7/dist/leaflet-routing-machine.js' %}"></script>
+    <script src="{% static 'downloads/leaflet-routing-machine-3.2.8/dist/leaflet-routing-machine.js' %}"></script>
     <script src="{% static 'downloads/Leaflet.markercluster-1.2.0/dist/leaflet.markercluster.js' %}"></script>
     <script src="{% static 'downloads/Leaflet.ExtraMarkers-master/src/assets/js/leaflet.extra-markers.js' %}"></script>
     <script src="{% static 'downloads/leaflet-layer-overpass-master/dist/OverPassLayer.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
     <div id="dashboard">
@@ -52,6 +56,43 @@
         <div class="panel-default">
             {% block content %}
             {% endblock %}
+        </div>
+    </div>
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active" id="image-1">
+                <img class="d-block w-100" src="../static/images/track.png" alt="First slide">
+                <div class="carousel-caption">
+                    <h2>Navigate to the Track page to view your Bike's Current Location!</h2>
+                </div>
+            </div>
+            <div class="item" id="image-2">
+                <img class="d-block w-100" src="../static/images/journey.png" alt="Second slide">
+                <div class="carousel-caption">
+                    <h2>The System automatically detects and records all Journeys!</h2>
+                </div>
+            </div>
+            <div class="item" id="image-3">
+                <img class="d-block w-100" src="../static/images/plan.png" alt="Third slide">
+                <div class="carousel-caption">
+                    <h2>Prevent Bike theft by creating a safe and secure route in the Plan page!</h2>
+                </div>
+            </div>
+            <div class="item" id="image4">
+                <img class="d-block w-100" src="../static/images/known-places.png" alt="Third slide">
+                <div class="carousel-caption">
+                    <h2>The System learns frequently visited locations and marks them as Safe Areas!</h2>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </div>
 </body>

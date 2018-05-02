@@ -8,8 +8,13 @@ attr_overpass = 'POI via <a href="http://www.overpass-api.de/">Overpass API</a>'
 var osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {opacity: 0.7, attribution: [attr_osm, attr_overpass].join(', ')});
 var map = L.map('map', { zoomControl:true }).addLayer(osm).setView([53.3477, -6.2632], 12);
 var route = [];
+let closestStations = L.markerClusterGroup();
 var highSecurtiy = false;
-
+standsURL = 'https://www.overpass-api.de/api/interpreter?' +
+        'data=[out:json][timeout:60];' +
+        'area["boundary"~"administrative"]["name"~"Dublin"];' +
+        'node(area)["amenity"~"bicycle_parking"];' +
+        'out;';
 
 var lockIcon = L.ExtraMarkers.icon({
     icon: 'fa-lock',
@@ -43,96 +48,111 @@ var homeIcon = L.ExtraMarkers.icon({
     prefix: 'fa'
 });
 
+var shopIcon = L.ExtraMarkers.icon({
+    icon: 'fa-wrench',
+    iconColor: 'white',
+    markerColor: 'yellow',
+    shape: 'circle',
+    prefix: 'fa'
+});
+
 markerClusters = L.markerClusterGroup();
 var geojson = {
       type: "FeatureCollection",
       features: [],
     };
 
-$.ajax({
-    url:
-        'https://www.overpass-api.de/api/interpreter?' +
-        'data=[out:json][timeout:60];' +
-        'area["boundary"~"administrative"]["name"~"Dublin"];' +
-        'node(area)["amenity"~"bicycle_parking"];' +
-        'out;',
-    dataType: 'json',
-    type: 'GET',
-    async: true,
-    crossDomain: true
-}).done(function(data) {
-    console.log(data);
+DisplayResources();
 
-    for (let i = 0; i < data.elements.length; i++) {
-        geojson.features.push({
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [data.elements[i].lat, data.elements[i].lon]
+function GetStands(){
+    $.ajax({
+        url:
+            'https://www.overpass-api.de/api/interpreter?' +
+            'data=[out:json][timeout:60];' +
+            'area["boundary"~"administrative"]["name"~"Dublin"];' +
+            'node(area)["amenity"~"bicycle_parking"];' +
+            'out;',
+        dataType: 'json',
+        type: 'GET',
+        async: true,
+        crossDomain: true
+    }).done(function(data) {
+        console.log(data);
+
+        for (let i = 0; i < data.elements.length; i++) {
+            geojson.features.push({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [data.elements[i].lat, data.elements[i].lon]
+                }
+            });
+        }
+
+        console.log(geojson);
+        new L.GeoJSON(geojson, {
+            onEachFeature: function(feature, layer) {
+                var m = L.marker(feature.geometry.coordinates, {
+                    icon: lockIcon
+                })
+                markerClusters.addLayer( m );
             }
         });
-    }
-
-    console.log(geojson);
-    new L.GeoJSON(geojson, {
-        onEachFeature: function(feature, layer) {
-            var m = L.marker(feature.geometry.coordinates, {
-                icon: lockIcon
-            })
-            markerClusters.addLayer( m );
-        }
+        map.addLayer( markerClusters );
+    }).fail(function(error) {
+        console.log(error);
+        console.log( "error" );
+    }).always(function() {
+        console.log( "complete" );
     });
-    console.log( "second success" );
-    map.addLayer( markerClusters );
-}).fail(function(error) {
-    console.log(error);
-    console.log( "error" );
-}).always(function() {
-    console.log( "complete" );
-});
+}
 
+function GetShops(){
+    $.ajax({
+        url:
+            'https://www.overpass-api.de/api/interpreter?' +
+            'data=[out:json][timeout:60];' +
+            'area["boundary"~"administrative"]["name"~"Dublin"];' +
+            'node(area)["shop"~"bicycle"];' +
+            'out;',
+        dataType: 'json',
+        type: 'GET',
+        async: true,
+        crossDomain: true
+    }).done(function(data) {
+        console.log(data);
 
-function DisplayStations(){
-    markerClusters = L.markerClusterGroup();
-    console.log("stations")
-
-    //OverPassAPI overlay
-    var opl = new L.OverPassLayer({
-      query: "(node(BBOX)['amenity'='drinking_water'];);out;",
-    });
-    console.log(opl)
-    map.addLayer(opl);
-    fetch("https://www.overpass-api.de/api/interpreter?data=[out:json];node[highway=speed_camera](43.46669501043081,-5.708215989569187,43.588927989569186,-5.605835010430813);out%20meta")
-        .then((response) => {
-            console.log(response.json())
-            return response.json();
-        })
-        .then((data) => {
-            new L.GeoJSON(data, {
-                onEachFeature: function(feature, layer){
-                    var popup = "<dd>" + "Location: " + feature.properties.location + "</dd>" +
-                                    "<dd>" + "Security: " + feature.properties.security + "</dd>" +
-                                    "<dd>" + "Type: " + feature.properties.type + "</dd>" +
-                                    "<dd>" + "Number of Stands: " + feature.properties.no_stands + "</dd>";
-                    var m = L.marker(feature.geometry.coordinates, {
-                        icon: lockIcon
-                    })
-                    .bindPopup( popup );
-                    if(highSecurtiy){
-                        console.log("High Secuirty");
-                        if(feature.properties.security === "High" || feature.properties.security === "high"){
-                            markerClusters.addLayer( m );
-
-                        }
-                    }
-                    else{
-                        markerClusters.addLayer( m );
-                    }
-
+        for (let i = 0; i < data.elements.length; i++) {
+            geojson.features.push({
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [data.elements[i].lat, data.elements[i].lon]
                 }
-            })
+            });
+        }
+
+        console.log(geojson);
+        new L.GeoJSON(geojson, {
+            onEachFeature: function(feature, layer) {
+                var m = L.marker(feature.geometry.coordinates, {
+                    icon: shopIcon
+                })
+                markerClusters.addLayer( m );
+            }
         });
-    map.addLayer( markerClusters );
+        map.addLayer( markerClusters );
+    }).fail(function(error) {
+        console.log(error);
+        console.log( "error" );
+    }).always(function() {
+        console.log( "complete" );
+    });
+}
+
+function DisplayResources(){
+    GetStands();
+    GetShops();
 }
 
 function SettingsReset(){
@@ -214,20 +234,30 @@ function Create(){
     if(route.length > 1){
         Route();
     }
+    show();
     map.removeLayer(startMarker);
     map.removeLayer(destMarker);
 }
 
+function show(){
+    document.getElementById("save-route-input").style.visibility="visible";
+    document.getElementById("save-route-button").style.visibility="visible";
+}
+
+function hide(){
+    document.getElementById("save-route-input").style.visibility="hidden";
+    document.getElementById("save-route-button").style.visibility="hidden";
+}
+
 function MapReset(){
     route = [];
-    map.removeLayer(startMarker);
-    map.removeLayer(destMarker);
-    map.removeLayer(closestStation);
-    map.removeLayer(markerClusters);
-    control.getPlan().setWaypoints([]);
+    map.eachLayer(function (layer) {
+        map.removeLayer(layer);
+    });
+    map.removeControl(control);
+    map.addLayer(osm).setView([53.3477, -6.2632], 12);
 
-    map.setView([53.3477, -6.2632], 12);
-    DisplayStations();
+    map.addLayer( markerClusters );
 }
 
 function Route() {
@@ -237,24 +267,80 @@ function Route() {
             route[1]
         ],
         icon: lockIcon,
-        show: false,
+        show: true,
         routeWhileDragging: false,
         draggable: false,
         showAlternatives: false,
     }).addTo(map);
     map.removeLayer(markerClusters);
-    var shortestDistance = 100000.0;
+    let shortestDistance = 200.0;
     markerClusters.eachLayer(function(layer){
         if(layer._latlng.distanceTo(route[1]) < shortestDistance ) {
-            shortestDistance = layer._latlng.distanceTo(route[1]);
-            closestStation = layer;
+            console.log(layer);
+            closestStations.addLayer(layer);
         }
     });
-
-    map.addLayer(closestStation);
-    closestStation.openPopup();
+    console.log(closestStations)
+    map.addLayer(closestStations);
 }
 
 function Collapse(){
     $('#dest').collapse("hide");
+}
+
+$('#parking').click(function() {
+    console.log("radio checked");
+    map.remove(markerClusters);
+    markerClusters.clearLayers();
+   if($('#parking').is(':checked')) { GetStands(); }
+   if($('#repair').is(':checked')) { GetStands(); }
+   if($('#garda').is(':checked')) { GetStands(); }
+});
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+function SaveRoute(){
+    console.log(route);
+
+    var csrftoken = getCookie('csrftoken');
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    console.log(document.getElementById("save-route-input").value);
+    $.ajax({
+        url: "http://45.77.102.53/plan/save-route/",
+        type: "POST",
+        dataType: "json",
+        data: {
+            name: document.getElementById("save-route-input").value,
+            route: JSON.stringify(route)
+        },
+    });
+
+    hide();
 }

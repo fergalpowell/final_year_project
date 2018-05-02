@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% load leaflet_tags %}
 {% load static %}
 
 {% block content %}
+    <script src="{% static 'js/track.js' %}"></script>
     <div class="card">
         <div class="card-header">
             <img src="../static/images/triban.jpg" alt="card-image" class="card-image"/>
@@ -10,24 +10,31 @@
         <div class="card-content">
             <button data-target=""
                     id="locate"
-                    class="btn btn-primary">Current Location
+                    class="btn btn-primary"
+                    onclick="Locate('http://45.77.102.53/track/current-location-data/')">
+                    Current Location
             </button>
             <button data-target="#journeys"
-                    class="btn btn-primary">Past Journeys
+                    class="btn btn-primary"
+                    onclick="GetJourney('http://127.0.0.1:8000/track/journey-data/')">
+                    Past Journeys
             </button>
             <br><br>
             <button data-target=""
                     id="locate"
-                    class="btn btn-primary">View Home
+                    class="btn btn-primary"
+                    onclick="Locate('http://127.0.0.1:8000/track/home-location-data/')">View Home
             </button>
             <button data-target=""
-                    class="btn btn-primary">View Work
+                    class="btn btn-primary"
+                    onclick="Locate('http://127.0.0.1:8000/track/work-location-data/')">View Work
             </button>
             <hr class="hr"/>
-            <div class="results"></div>
+            <div class="results" id="journey-table">
+
+            </div>
             <br>
 
         </div>
     </div>
-    <script src="{% static 'js/track.js' %}"></script>
 {% endblock %}

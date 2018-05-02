@@ -5,8 +5,12 @@ from profile.forms import UserForm, ProfileForm
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from .models import Profile
+from plan.models import Route
 from django.http import HttpResponse, JsonResponse
 from .serializers import ProfileSerializer
+from django.template.loader import get_template
+from plan.serializers import RouteSerializer
+
 
 @login_required
 @transaction.atomic
@@ -27,9 +31,15 @@ def update_profile(request):
     })
 
 
+def load_profile(request):
+    t = get_template('profile.html')
+    html = t.render()
+    return HttpResponse(html)
+
+
 def profile_detail(request):
     try:
-        profile = Profile.objects.get(pk=1)
+        profile = Profile.objects.get(pk=11)
     except Profile.DoesNotExist:
         return HttpResponse(status=404)
 
@@ -37,3 +47,13 @@ def profile_detail(request):
         serializer = ProfileSerializer(profile)
         return JsonResponse(serializer.data, safe=False)
 
+
+def route_detail(request):
+    try:
+        route = Route.objects.latest('date_time')
+    except Route.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = RouteSerializer(route)
+        return JsonResponse(serializer.data, safe=False)

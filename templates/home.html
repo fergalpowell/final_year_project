@@ -1,24 +1,44 @@
 {% extends "base.html" %}
-{% load leaflet_tags %}
 {% load static %}
 
 {% block content %}
-    <div class="card">
-        <div class="card-header">
-            {% if user.is_authenticated %}
-                <h2>welcome</h2>
-            {% endif %}
-        {%  if not user.is_authenticated %}
-            <h2>Login</h2>
-        {% endif %}
+    {%  if not user.is_authenticated %}
+        <div class="card">
+            <div class="card-header">
+                <h2>Login</h2>
+            </div>
+            <div class="card-content">
+                <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit"
+                        class="btn btn-primary"
+                        id="logout-button">
+                        Login
+                </button>
+            </form>
+            </div>
         </div>
-        <div class="card-content">
-            <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
-        </form>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <div class="card">
+            <div class="card-header">
+                <img src="../static/images/triban.jpg" alt="card-image" class="card-image"/>
+            </div>
+            <div class="card-content">
+                <h2>Welcome Back!</h2>
+                <h3>Use the navigation bar above to navigate</h3>
+                <br>
+                <a href="{% url 'logout' %}">
+                    <button type="button"
+                            class="btn btn-primary"
+                            id="logout-button">
+                            Logout
+                    </button>
+                </a>
+            </div>
         </div>
-    </div>
-    <script src="{% static 'js/plan.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

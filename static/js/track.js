@@ -52,35 +52,58 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let current_data_url = 'http://127.0.0.1:8000/track/current-location-data/';
 let work_data_url = 'http://127.0.0.1:8000/track/work-location-data/';
 let home_data_url = 'http://127.0.0.1:8000/track/home-location-data/';
-let journey_data_url = 'http://127.0.0.1:8000/track/journey-data/';
 let journey = [];
+let journey_data = [];
+let control = L.Routing.control({
+        show: false,
+        routeWhileDragging: false,
+        draggable: false,
+        showAlternatives: false,
+    });
 
-GetLocation(work_data_url, 1);
-GetLocation(home_data_url, 2);
-GetLocation(current_data_url, 0);
-GetJourney(journey_data_url);
+function GetLocations(){
+    GetLocation(work_data_url, 1);
+    GetLocation(home_data_url, 2);
+    GetLocation(current_data_url, 0);
+}
+
+GetLocations();
 
 function GetJourney(url) {
     $.getJSON(url, function (data) {
-        // Add GeoJSON layer
         L.geoJson(data, {
             onEachFeature: function (feature) {
-                console.log(feature);
-                feature.geometry.coordinates.forEach(function (value) {
-                    console.log(value)
-                    journey.push(value)
-                })
+                journey_data.push(feature);
             }
         });
-        console.log(journey);
-        control = L.Routing.control({
-            waypoints: journey,
-            show: false,
-            routeWhileDragging: false,
-            draggable: false,
-            showAlternatives: false,
-        }).addTo(map);
+        var table = document.createElement('table');
+        table.className = 'table';
+        var tbody = document.createElement('tbody');
+        for (var i = 0; i < journey_data.length; i++){
+            var tr = document.createElement('tr');
+            var td = document.createElement('td');
+            let date_slice = new Date(journey_data[i].properties.date_time);
+            td.innerHTML = String(date_slice).slice(0,21) + " ";
+            let button = document.createElement('button');
+            button.className = "btn btn-primary";
+            button.innerHTML = "Show";
+            let index = i;
+            button.onclick = function(){ShowJourney(index)};
+            td.appendChild(button);
+            tr.appendChild(td);
+
+            tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+        var output = document.getElementById('journey-table');
+        output.appendChild(table);
     });
+}
+
+function ShowJourney(index) {
+    console.log(journey_data);
+    control.setWaypoints(journey_data[index].geometry.coordinates);
+    control.addTo(map);
 }
 
 function GetLocation(url, type) {
@@ -115,9 +138,9 @@ function GetLocation(url, type) {
     });
 }
 
-$('#locate').on('click', function() {
+function Locate(url) {
     var zoom = 17;
-    $.getJSON(current_data_url, function (data) {
+    $.getJSON(url, function (data) {
         // Add GeoJSON layer
         L.geoJson(data, {
             onEachFeature: function (feature) {
@@ -131,7 +154,9 @@ $('#locate').on('click', function() {
             }
         });
     });
-});
+}
+
+
 
 
 
